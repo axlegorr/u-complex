@@ -15,3 +15,9 @@ after_success:
   - docker build -t aleksgor/u-complex-nginx ./nginx
   - docker build -t aleksgor/u-complex-server ./server
   - docker build -t aleksgor/u-complex-worker ./worker
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push aleksgor/u-complex-client
+  - docker push aleksgor/u-complex-nginx
+  - docker push aleksgor/u-complex-server
+  - docker push aleksgor/u-complex-worker
+  
