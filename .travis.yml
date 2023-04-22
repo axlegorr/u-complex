@@ -1,0 +1,17 @@
+language: generic
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - docker build -t aleksgor/u-complex-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run aleksgor/u-complex-test npm run test -- --coverage --watchAll=false
+
+after_success:
+  - docker build -t aleksgor/u-complex-client ./client
+  - docker build -t aleksgor/u-complex-nginx ./nginx
+  - docker build -t aleksgor/u-complex-server ./server
+  - docker build -t aleksgor/u-complex-worker ./worker
